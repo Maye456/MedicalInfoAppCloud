@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xlmns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate">
+<head>
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    font-family: Arial;
+}
+
+h2 {
+    color: blue;
+}
+
+p {
+    font-style: italic;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 2px;
+}
+</style>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container-xl">
+		<h1>IN THE ADMIN</h1>
+		<h1 th:text="${title}"></h1>
+		<h2 th:text="${searchModel.searchTerm}"></h2>
+		<table class="table table-striped">
+			<tr class="table-primary">
+				<th>ID</th>
+                <th>Procedure Name</th>
+                <th>Risk Factor</th>
+                <th>Specialty Area</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Photo</th>
+                <th>Edit</th>
+                <th>Delete</th>
+			</tr>
+			<tr th:each="procedures : ${procedure}">
+                <td th:text="${procedures.id}"></td>
+                <td th:text="${procedures.procedureName}"></td>
+                <td th:text="${procedures.riskFactor}"></td>
+                <td th:text="${procedures.specialtyArea}"></td>
+                <td th:text="${procedures.description}"></td>
+                <td th:text="${procedures.price}"></td>
+                <td th:text="${procedures.photo}"></td>
+				<td>
+					<form action="#" th:action="@{/procedure/delete}" th:object="${procedure}" method="post"> 
+						<input name="id" type="hidden" th:value="${procedures.id}"> 
+						<input name="procedureName" type="hidden" th:value="${procedures.procedureName}"> 
+						<input name="riskFactor" type="hidden" th:value="${procedures.riskFactor}">
+						<input name="specialtyArea" type="hidden" th:value="${procedures.specialtyArea}">
+						<input name="description" type="hidden" th:value="${procedures.description}">
+						<input name="price" type="hidden" th:value="${procedures.price}">
+						<input name="photo" type="hidden" th:value="${procedures.photo}">
+						<button class="btn btn-danger" type="submit" name="deleteItem">Delete</button>
+					</form>
+				</td>
+				<td>
+					<form action="#" th:action="@{/procedure/editForm}" th:object="${procedure}" method="post"> 
+						<input name="id" type="hidden" th:value="${procedures.id}"> 
+						<input name="procedureName" type="hidden" th:value="${procedures.procedureName}"> 
+						<input name="riskFactor" type="hidden" th:value="${procedures.riskFactor}">
+						<input name="specialtyArea" type="hidden" th:value="${procedures.specialtyArea}">
+						<input name="description" type="hidden" th:value="${procedures.description}">
+						<input name="price" type="hidden" th:value="${procedures.price}">
+						<input name="photo" type="hidden" th:value="${procedures.photo}">
+						<button class="btn btn-secondary" type="submit" name="deleteItem">Edit</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
