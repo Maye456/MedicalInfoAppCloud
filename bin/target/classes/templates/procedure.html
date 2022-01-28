@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xlmns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate">
+<head>
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    font-family: Arial;
+}
+
+h2 {
+    color: blue;
+}
+
+p {
+    font-style: italic;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+ul.nav {
+  padding-left: 0px;
+  /* background-color: #3D99CE; */
+  text-align: center;
+}
+
+ul.nav > li {
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+ul.nav > li > a {
+  color: black;
+  text-decoration: none;
+}
+
+.button {
+	background-color: #95C8D8;
+    border: none;
+    color: white;
+    padding: 6px 18px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+
+
+<body>
+    <div layout:fragment="content" class="container-xl">
+        <h1 th:text="${title}"></h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Procedure Name</th>
+                <th>Risk Factor</th>
+                <th>Specialty Area</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Photo</th>
+            </tr>
+            <tr th:each="procedures : ${procedure}">
+                <td th:text="${procedures.id}"></td>
+                <td th:text="${procedures.procedureName}"></td>
+                <td th:text="${procedures.riskFactor}"></td>
+                <td th:text="${procedures.specialtyArea}"></td>
+                <td th:text="${procedures.description}"></td>
+                <td th:text="${procedures.price}"></td>
+                <td th:text="${procedures.photo}"></td>
+            </tr>
+        </table>
+        <ul class="nav">
+			<li><button type="button" class="btn btn-outline-primary"><a href="/procedure/searchForm">Search Procedures</a></button></li>
+			<li><button type="button" class="btn btn-outline-primary"><a href="/procedure/addNewForm">Create New Procedure</a></button></li>
+			<li><button type="button" class="btn btn-outline-primary"><a href="/procedure/admin">Admin</a></button></li>
+		</ul>
+    </div>
+</body>
+</html>
