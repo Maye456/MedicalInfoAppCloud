@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ public class ProcedureController
 {
 	@Autowired
 	IProcedureBusinessService procedureService;
+	
+	Logger logger = LoggerFactory.getLogger(ProcedureController.class);
 	
 	@GetMapping("/all")
     public String showAll(Model model)
@@ -45,6 +49,9 @@ public class ProcedureController
     // process a request from the AddOrderForm.  Add a new order to the database.  Show all orders.
     public String addProcedure(@Valid ProcedureModel newProcedure, BindingResult bindingResult, Model model) 
     {
+		// Log the API Call
+		logger.info("Entering UserController.addProcedure()");
+		
         // add the new order
         procedureService.addOne(newProcedure);
         // get updated list of all the orders
@@ -69,6 +76,9 @@ public class ProcedureController
 	@PostMapping("/searchResults")
 	public String showAllProcedures(@Valid SearchProcedureModel searchModel, BindingResult bindingResult, Model model)
 	{
+		// Log the API Call
+		logger.info("Entering UserController.search()");
+		
 		System.out.println("Performing search results for " + searchModel.getSearchTerm());
 		
 		// Check for validation errors
@@ -87,6 +97,9 @@ public class ProcedureController
 	@GetMapping("/admin") 
 	public String showProceduresForAdmin(Model model)
 	{  
+		// Log the API Call
+		logger.info("Entering UserController.showAdmin()");
+				
 		List<ProcedureModel> procedures = procedureService.getProcedures();
         model.addAttribute("title", "Edit or Delete Procedures");
         model.addAttribute("searchModel", new SearchProcedureModel());
@@ -98,6 +111,9 @@ public class ProcedureController
 	// process a request from the AddOrderForm.  Add a new order to the database.  Show all orders.
 	public String deleteProcedure(@Valid ProcedureModel procedure, BindingResult bindingResult, Model model) 
 	{
+		// Log the API Call
+		logger.info("Entering UserController.delete()");
+				
 		// add the new order
 		procedureService.deleteOne(procedure.getId());
 		
@@ -123,6 +139,9 @@ public class ProcedureController
 	// process a request from the AddOrderForm.  Add a new order to the database.  Show all orders.
 	public String updateProcedure(@Valid ProcedureModel procedure, BindingResult bindingResult, Model model)
 	{
+		// Log the API Call
+		logger.info("Entering UserController.update()");
+				
 		// add the new order
 		procedureService.updateOne(procedure.getId(), procedure);
 		
